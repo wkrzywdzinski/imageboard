@@ -1,10 +1,21 @@
 <!doctype html>
 <html>
 <head>
+  <link rel="stylesheet" href="stylesheet.css">
     <title></title>
 </head>
 <body>
+  <div id="main">
+    <h1>{{header}}</h1>
+    <h2>latest images</h2>
+    <div class="imagebox" v-for= "each in respondarr">
+    <p> {{each.title}}</p>
+    <img :src="each.url" alt="">
+    <!-- remember colon >> no brackets -->
+    </div>
+  </div>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
+    <script src="/js/script.js"></script>
 </body>
 </html>

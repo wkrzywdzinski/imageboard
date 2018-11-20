@@ -8,12 +8,24 @@
   <div id="main">
     <h1>{{header}}</h1>
     <h2>latest images</h2>
-    <div class="imagebox" v-for= "each in respondarr">
-    <p> {{each.title}}</p>
+    <div id="imagebigbox">
+    <div class="imagebox" v-for= "each in images">
+    <p>{{each.title}}</p>
     <img :src="each.url" alt="">
+    <p>{{each.description}}</p>
     <!-- remember colon >> no brackets -->
     </div>
   </div>
+  <form>
+        <!-- sends the data to the defined place in data  -->
+    <input v-model="form.title" type="text"  name="title" placeholder="title">
+    <input v-model="form.description" type="text"  name="description" placeholder="description">
+    <input v-model="form.username" type="text"  name="username" placeholder="usename">
+    <input type="file"  name="file" placeholder="upload file" accept="image/*" @change = "handleFileChange">
+    <button @click="uploadFile">submit</button>
+    <!-- listen for this kind of event, upload file its a name of function-->
+  </form>
+</div>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>

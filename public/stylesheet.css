@@ -1,13 +1,11 @@
 * {
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 30px;
-  margin-right: 30px;
+  margin: 0;
   box-sizing: border-box;
 }
 #imagebigbox {
   margin-top: 20px;
   display: flex;
+  flex-flow: row wrap;
   justify-content: space-between;
   width: 100%;
 }
@@ -20,13 +18,38 @@
   overflow: hidden;
 }
 .imagebox img {
-  position: absolute;
   margin: auto;
-  left: 0;
-  right: 0;
-  max-width: 100%;
+  padding: 5px;
+  object-fit: cover;
+  height: 350px;
+  width: 450px;
 }
 form {
-  margin-top: 20px;
+  position: absolute;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
   border: 2px black solid;
+  height: 30px;
+}
+#biggerimage {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: black;
+  text-align: center;
+  width: 500px;
+  height: 400px;
+  overflow: hidden;
+  z-index: 500;
+  color: white;
+}
+#biggerimage img {
+  margin: auto;
+  padding: 5px;
+  object-fit: cover;
+  height: 200px;
+  width: 200px;
 }

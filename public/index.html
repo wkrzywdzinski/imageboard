@@ -8,10 +8,14 @@
   <div id="main">
     <h1>{{header}}</h1>
     <h2>latest images</h2>
+    <showimage :assignedid="imageid" v-if="imageid" @closeimagebox="closecomponent"></showimage>
+    <!-- /////////kebabcase with first name/// -->
+    <!-- :image-id = {{'imageId'}} -->
     <div id="imagebigbox">
     <div class="imagebox" v-for= "each in images">
     <p>{{each.title}}</p>
-    <img :src="each.url" alt="">
+    <p>{{each.username}}</p>
+    <img :src="each.url" :id="each.id" alt="" @click="checkid">
     <p>{{each.description}}</p>
     <!-- remember colon >> no brackets -->
     </div>
@@ -26,6 +30,16 @@
     <!-- listen for this kind of event, upload file its a name of function-->
   </form>
 </div>
+<script id="my-template" type="text/x-template">
+  <div id="biggerimage">
+    <h1 @click="closeemit">X</h1>
+
+    <h1>{{title}}</h1>
+        <img :src="url"  alt="">
+        <p> {{description}}</p>
+        <p>{{username}}</p>
+</div>
+</script>
     <script src="/js/vue.js"></script>
     <script src="/js/axios.min.js"></script>
     <script src="/js/script.js"></script>

@@ -2,7 +2,9 @@ const express = require("express");
 const app = express();
 const db = require("./db");
 const s3 = require("./s3");
+const bodyParser = require("body-parser");
 const config = require("./config.json");
+app.use(bodyParser.json());
 app.use(express.static("./public"));
 app.use(express.static("./uploads"));
 ///////////////////upload file///////////////////
@@ -51,6 +53,11 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
       success: false
     });
   }
+});
+app.get("/get-picture/:id", function(req, res) {
+  db.getpicture(req.params.id).then(function(results) {
+    res.json(results.rows[0]);
+  });
 });
 ////////////////////////downsection/////////////////////
 app.listen(8080, () => console.log("listening 8080"));

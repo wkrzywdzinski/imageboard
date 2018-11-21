@@ -1,9 +1,40 @@
 (function() {
+  Vue.component("showimage", {
+    template: "#my-template",
+    props: ["assignedid"],
+    // prop takes property of parent
+    data: function() {
+      return {
+        heading: "heading compo",
+        title: "",
+        description: "",
+        username: "",
+        url: ""
+      };
+    },
+    mounted: function() {
+      var self = this;
+      axios.get("/get-picture/" + this.assignedid).then(function(resp) {
+        self.url = resp.data.url;
+        self.username = resp.data.username;
+        self.description = resp.data.description;
+        self.title = resp.data.title;
+      });
+    },
+    methods: {
+      closeemit: function() {
+        console.log("close emit");
+        this.$emit("closeimagebox");
+      }
+    }
+  });
+
   new Vue({
     el: "#main",
     data: {
       header: "imageboard",
       images: [],
+      imageid: 0,
       form: {
         title: "",
         description: "",
@@ -20,6 +51,12 @@
       });
     },
     methods: {
+      checkid: function() {
+        this.imageid = event.currentTarget.id;
+      },
+      closecomponent: function() {
+        this.imageid = null;
+      },
       handleFileChange: function(e) {
         this.form.file = e.target.files[0];
       },
@@ -35,7 +72,7 @@
         axios.post("/upload", formData).then(function(resp) {
           let postrespfromserver = resp.data[0];
           console.log(postrespfromserver);
-          self.images.push(postrespfromserver);
+          self.images.unshift(postrespfromserver);
         });
       }
     }

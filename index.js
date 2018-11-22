@@ -59,5 +59,11 @@ app.get("/get-picture/:id", function(req, res) {
     res.json(results.rows[0]);
   });
 });
+app.get("/getmoreimages/:id", function(req, res) {
+  ///////////if = 1 do something/////////////
+  db.getmoreimages(req.params.id).then(function(results) {
+    res.json(results.rows);
+  });
+});
 ////////////////////////downsection/////////////////////
 app.listen(8080, () => console.log("listening 8080"));

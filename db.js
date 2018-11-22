@@ -6,13 +6,29 @@ const db = spicedPg(
 );
 
 exports.getdata = function() {
-  return db.query(`SELECT * FROM images`);
+  return db.query(
+    `SELECT * FROM images
+    ORDER BY id DESC
+    LIMIT 9`
+  );
 };
 exports.getpicture = id => {
   return db.query(
     `SELECT *
         FROM images
         WHERE ID = $1`,
+    [id]
+  );
+};
+exports.getmoreimages = id => {
+  return db.query(
+    `SELECT *, (
+      SELECT ID AS last_id FROM images WHERE ID = 5
+    )
+        FROM images
+        WHERE ID < $1
+        ORDER BY id DESC
+        LIMIT 9`,
     [id]
   );
 };

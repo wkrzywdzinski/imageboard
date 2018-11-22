@@ -23,7 +23,6 @@
     },
     methods: {
       closeemit: function() {
-        console.log("close emit");
         this.$emit("closeimagebox");
       }
     }
@@ -71,8 +70,14 @@
         formData.append("file", this.form.file);
         axios.post("/upload", formData).then(function(resp) {
           let postrespfromserver = resp.data[0];
-          console.log(postrespfromserver);
           self.images.unshift(postrespfromserver);
+        });
+      },
+      getmoreimages: function() {
+        var self = this;
+        var lastimageid = this.images[this.images.length - 1].id;
+        axios.get("getmoreimages/" + lastimageid).then(function(resp) {
+          self.images.push.apply(self.images, resp.data);
         });
       }
     }

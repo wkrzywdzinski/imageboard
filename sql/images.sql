@@ -8,9 +8,10 @@ CREATE TABLE images(
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+DROP TABLE IF EXISTS comments;
 CREATE TABLE comments(
     id SERIAL PRIMARY KEY,
-    imageID VARCHAR(300) NOT NULL,
+    imageid INTEGER NOT NULL,
     commentusername VARCHAR(255) NOT NULL,
     comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

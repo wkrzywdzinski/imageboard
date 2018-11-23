@@ -1,35 +1,34 @@
 <!doctype html>
 <html>
 <head>
+  <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One" rel="stylesheet">
   <link rel="stylesheet" href="stylesheet.css">
     <title></title>
 </head>
 <body>
   <div id="main">
-    <h1>{{header}}</h1>
-    <h2>latest images</h2>
+    <form id="uploadbar">
+      <input v-model="form.title" type="text"  name="title" placeholder="title">
+      <input v-model="form.description" type="text"  name="description" placeholder="description">
+      <input v-model="form.username" type="text"  name="username" placeholder="username">
+      <input type="file"  name="file" placeholder="upload file" accept="image/*" @change = "handleFileChange">
+      <button @click="uploadFile">submit</button>
+    </form>
     <showimage :assignedid="imageid" v-if="imageid" @closeimagebox="closecomponent"></showimage>
-    <!-- /////////kebabcase with first name/// -->
-    <!-- :image-id = {{'imageId'}} -->
     <div id="imagebigbox">
     <div class="imagebox" v-for= "each in images">
     <p>{{each.title}}</p>
     <p>{{each.username}}</p>
+    <a :href="'#' + each.id">
     <img :src="each.url" :id="each.id" alt="" @click="checkid">
+  </a>
     <p>{{each.description}}</p>
     <!-- remember colon >> no brackets -->
     </div>
+      <button @click="getmoreimages" id="moreimagesbutton">more</more>
   </div>
-  <form>
-        <!-- sends the data to the defined place in data  -->
-    <input v-model="form.title" type="text"  name="title" placeholder="title">
-    <input v-model="form.description" type="text"  name="description" placeholder="description">
-    <input v-model="form.username" type="text"  name="username" placeholder="usename">
-    <input type="file"  name="file" placeholder="upload file" accept="image/*" @change = "handleFileChange">
-    <button @click="uploadFile">submit</button>
-    <!-- listen for this kind of event, upload file its a name of function-->
-  </form>
-  <button @click="getmoreimages">more</more>
+
+
 </div>
 <script id="my-template" type="text/x-template">
   <div id="biggerimage">
@@ -39,6 +38,15 @@
         <img :src="url"  alt="">
         <p> {{description}}</p>
         <p>{{username}}</p>
+        <form>
+                  <input type="text" v-model="form.comment" name="commentusername" placeholder="username">
+                  <input type="text" v-model="form.commentusername"  name="description" placeholder="comment">
+          <button @click="uploadcomment">comment</button>
+        </form>
+        <div v-for= "each in comments">
+        <p>{{each.comment}}</p>
+        <p>{{each.commentusername}}</p>
+        </div>
 </div>
 </script>
     <script src="/js/vue.js"></script>

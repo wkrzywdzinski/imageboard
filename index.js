@@ -56,12 +56,21 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
 });
 app.get("/get-picture/:id", function(req, res) {
   db.getpicture(req.params.id).then(function(results) {
-    res.json(results.rows[0]);
+    res.json(results.rows);
   });
 });
 app.get("/getmoreimages/:id", function(req, res) {
   ///////////if = 1 do something/////////////
   db.getmoreimages(req.params.id).then(function(results) {
+    res.json(results.rows);
+  });
+});
+app.post("/comment", function(req, res) {
+  db.insertcomment(
+    req.body.imageid,
+    req.body.commentusername,
+    req.body.comment
+  ).then(function(results) {
     res.json(results.rows);
   });
 });

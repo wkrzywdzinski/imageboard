@@ -1,18 +1,48 @@
 * {
   margin: 0;
   box-sizing: border-box;
+  font-family: "Rubik Mono One", sans-serif;
+  color: #2994b2;
+}
+body {
+  background-color: #ffb400;
+}
+#uploadbar {
+  background-color: #2994b2;
+  position: absolute;
+  top: 0;
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: 5px;
+  padding: 0;
+  width: 100%;
+
+  height: 100px;
+  line-height: 100px;
+  vertical-align: middle;
+}
+input {
+  height: 50px;
 }
 #imagebigbox {
-  margin-top: 20px;
+  margin-top: 100px;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   width: 100%;
+  height: 100%;
+}
+#moreimagesbutton {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  margin-bottom: 0;
 }
 .imagebox {
+  margin: 10px;
   text-align: center;
   position: relative;
-  border: 2px black solid;
+  border: 1px #fffbe0 solid;
   width: 500px;
   height: 400px;
   overflow: hidden;
@@ -24,15 +54,7 @@
   height: 350px;
   width: 450px;
 }
-form {
-  position: absolute;
-  top: 0;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  border: 2px black solid;
-  height: 30px;
-}
+
 #biggerimage {
   position: absolute;
   left: 50%;
@@ -41,7 +63,7 @@ form {
   background: black;
   text-align: center;
   width: 500px;
-  height: 400px;
+  height: 800px;
   overflow: hidden;
   z-index: 500;
   color: white;

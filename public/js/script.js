@@ -6,22 +6,55 @@
     data: function() {
       return {
         heading: "heading compo",
+        comments: [],
         title: "",
         description: "",
         username: "",
-        url: ""
+        url: "",
+        form: {
+          comment: "",
+          commentusername: ""
+        }
       };
+    },
+    watch: {
+      assignedid: function() {
+        var self = this;
+        console.log("watcher watches", this.assignedid);
+        axios.get("/get-picture/" + this.assignedid).then(function(resp) {
+          self.url = resp.data[0].url;
+          self.username = resp.data[0].username;
+          self.description = resp.data[0].description;
+          self.title = resp.data[0].title;
+          self.comments = resp.data;
+        });
+      }
     },
     mounted: function() {
       var self = this;
       axios.get("/get-picture/" + this.assignedid).then(function(resp) {
-        self.url = resp.data.url;
-        self.username = resp.data.username;
-        self.description = resp.data.description;
-        self.title = resp.data.title;
+        self.url = resp.data[0].url;
+        self.username = resp.data[0].username;
+        self.description = resp.data[0].description;
+        self.title = resp.data[0].title;
+        self.comments = resp.data;
+        console.log(self);
       });
     },
     methods: {
+      uploadcomment: function(e) {
+        var self = this;
+        e.preventDefault();
+        axios
+          .post("/comment", {
+            comment: this.form.comment,
+            commentusername: this.form.commentusername,
+            imageid: this.assignedid
+          })
+          .then(function(resp) {
+            self.comments.unshift(resp.data[0]);
+          });
+      },
       closeemit: function() {
         this.$emit("closeimagebox");
       }
@@ -33,7 +66,7 @@
     data: {
       header: "imageboard",
       images: [],
-      imageid: 0,
+      imageid: location.hash.slice(1) || 0,
       form: {
         title: "",
         description: "",
@@ -44,6 +77,11 @@
     mounted: function() {
       var self = this;
       /////////scope//////////
+      window.addEventListener("hashchange", function() {
+        console.log("location hash", location.hash.slice(1));
+        self.imageid = location.hash.slice(1);
+        console.log(self.imageid);
+      });
       axios.get("/get-info").then(function(resp) {
         let getrespfromserver = resp.data;
         self.images = getrespfromserver;
@@ -62,7 +100,6 @@
       uploadFile: function(e) {
         var self = this;
         e.preventDefault();
-        // use formdata to uplad file to server//
         var formData = new FormData();
         formData.append("title", this.form.title);
         formData.append("description", this.form.description);

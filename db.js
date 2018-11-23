@@ -14,12 +14,16 @@ exports.getdata = function() {
 };
 exports.getpicture = id => {
   return db.query(
-    `SELECT *
+    `SELECT images.id, url, username, commentusername, title, description, comment
         FROM images
-        WHERE ID = $1`,
+        LEFT JOIN comments
+        ON images.id = comments.imageid
+        WHERE images.id = $1
+        ORDER BY comments.id DESC`,
     [id]
   );
 };
+
 exports.getmoreimages = id => {
   return db.query(
     `SELECT *, (
@@ -38,5 +42,13 @@ exports.insertdata = function(url, username, title, description) {
         VALUES ($1, $2, $3, $4)
         RETURNING id, url, username, title, description`,
     [url || null, username || null, title || null, description || null]
+  );
+};
+exports.insertcomment = function(imageid, commentusername, comment) {
+  return db.query(
+    `INSERT INTO comments (imageid, commentusername, comment)
+        VALUES ($1, $2, $3)
+        RETURNING id, imageid, commentusername, comment`,
+    [imageid || null, commentusername || null, comment || null]
   );
 };

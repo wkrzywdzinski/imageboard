@@ -20,7 +20,7 @@
     watch: {
       assignedid: function() {
         var self = this;
-        console.log("watcher watches", this.assignedid);
+        // console.log("watcher watches", this.assignedid);
         axios.get("/get-picture/" + this.assignedid).then(function(resp) {
           self.url = resp.data[0].url;
           self.username = resp.data[0].username;
@@ -38,7 +38,7 @@
         self.description = resp.data[0].description;
         self.title = resp.data[0].title;
         self.comments = resp.data;
-        console.log(self);
+        // console.log(self);
       });
     },
     methods: {
@@ -67,6 +67,7 @@
       header: "imageboard",
       images: [],
       imageid: location.hash.slice(1) || 0,
+      moreimages: true,
       form: {
         title: "",
         description: "",
@@ -78,9 +79,8 @@
       var self = this;
       /////////scope//////////
       window.addEventListener("hashchange", function() {
-        console.log("location hash", location.hash.slice(1));
+        // console.log("location hash", location.hash.slice(1));
         self.imageid = location.hash.slice(1);
-        console.log(self.imageid);
       });
       axios.get("/get-info").then(function(resp) {
         let getrespfromserver = resp.data;
@@ -113,6 +113,10 @@
       getmoreimages: function() {
         var self = this;
         var lastimageid = this.images[this.images.length - 1].id;
+        if (lastimageid == 1) {
+          this.moreimages = false;
+          console.log(this);
+        }
         axios.get("getmoreimages/" + lastimageid).then(function(resp) {
           self.images.push.apply(self.images, resp.data);
         });

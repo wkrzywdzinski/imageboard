@@ -18,22 +18,22 @@ CREATE TABLE comments(
 );
 
 INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/spicedling/jAVZmnxnZ-U95ap2-PLliFFF7TO0KqZm.jpg',
-    'funkychicken',
-    'Welcome to Berlin and the future!',
-    'This photo brings back so many great memories.'
+    'https://www.morebusiness.com/wp-content/uploads/2016/02/free-stock-photos-696x522.jpg',
+    'turtlelover',
+    'A turtle',
+    'I love turles.'
 );
 
 INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/spicedling/wg8d94G_HrWdq7bU_2wT6Y6F3zrX-kej.jpg',
-    'discoduck',
-    'Elvis',
-    'We can''t go on together with suspicious minds.'
+    'https://www.stockvault.net/data/2009/07/22/109588/thumb16.jpg',
+    'autumnlover',
+    'autumn leaves',
+    'i like the colors.'
 );
 
 INSERT INTO images (url, username, title, description) VALUES (
-    'https://s3.amazonaws.com/spicedling/XCv4AwJdm6QuzjenFPKJocpipRNNMwze.jpg',
-    'discoduck',
-    'Hello Berlin',
-    'This is going to be worth a lot of money one day.'
+    'https://mymodernmet.com/wp/wp-content/uploads/2018/05/free-image-downloads.jpg',
+    'kitelover',
+    'whale kite',
+    'it is impressive.'
 );

@@ -4,9 +4,11 @@
   font-family: "Rubik Mono One", sans-serif;
   color: #2994b2;
 }
+
 body {
   background-color: #ffb400;
 }
+
 #uploadbar {
   background-color: #2994b2;
   position: absolute;
@@ -16,14 +18,15 @@ body {
   margin-bottom: 5px;
   padding: 0;
   width: 100%;
-
   height: 100px;
   line-height: 100px;
   vertical-align: middle;
 }
+
 input {
   height: 50px;
 }
+
 #imagebigbox {
   margin-top: 100px;
   display: flex;
@@ -32,21 +35,25 @@ input {
   width: 100%;
   height: 100%;
 }
+
 #moreimagesbutton {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   margin-bottom: 0;
 }
+
 .imagebox {
   margin: 10px;
+  padding: 5px;
   text-align: center;
   position: relative;
   border: 1px #fffbe0 solid;
   width: 500px;
-  height: 400px;
+  height: 500px;
   overflow: hidden;
 }
+
 .imagebox img {
   margin: auto;
   padding: 5px;
@@ -56,22 +63,27 @@ input {
 }
 
 #biggerimage {
-  position: absolute;
+  position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   background: black;
   text-align: center;
-  width: 500px;
+  width: 800px;
   height: 800px;
   overflow: hidden;
   z-index: 500;
   color: white;
 }
+
 #biggerimage img {
   margin: auto;
   padding: 5px;
   object-fit: cover;
-  height: 200px;
-  width: 200px;
+  height: 500px;
+  width: 700px;
+}
+
+#xbutton:hover {
+  cursor: pointer;
 }

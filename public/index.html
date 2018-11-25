@@ -1,56 +1,65 @@
 <!doctype html>
 <html>
+
 <head>
   <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One" rel="stylesheet">
   <link rel="stylesheet" href="stylesheet.css">
-    <title></title>
+  <title></title>
 </head>
+
 <body>
   <div id="main">
     <form id="uploadbar">
-      <input v-model="form.title" type="text"  name="title" placeholder="title">
-      <input v-model="form.description" type="text"  name="description" placeholder="description">
-      <input v-model="form.username" type="text"  name="username" placeholder="username">
-      <input type="file"  name="file" placeholder="upload file" accept="image/*" @change = "handleFileChange">
+      <input type="file" name="file" placeholder="upload file" accept="image/*" @change="handleFileChange">
+      <input v-model="form.title" type="text" name="title" placeholder="title">
+      <input v-model="form.description" type="text" name="description" placeholder="description">
+      <input v-model="form.username" type="text" name="username" placeholder="username">
+
       <button @click="uploadFile">submit</button>
     </form>
     <showimage :assignedid="imageid" v-if="imageid" @closeimagebox="closecomponent"></showimage>
     <div id="imagebigbox">
-    <div class="imagebox" v-for= "each in images">
-    <p>{{each.title}}</p>
-    <p>{{each.username}}</p>
-    <a :href="'#' + each.id">
-    <img :src="each.url" :id="each.id" alt="" @click="checkid">
-  </a>
-    <p>{{each.description}}</p>
-    <!-- remember colon >> no brackets -->
+
+      <div class="imagebox" v-for="each in images">
+        <h1>{{each.title}}</h1>
+        <p>{{each.description}}</p>
+        <a :href="'#' + each.id">
+          <img :src="each.url" :id="each.id" alt="" @click="checkid">
+          <p>by {{each.username}}</p>
+        </a>
+
+        <!-- remember colon >> no brackets -->
+      </div>
+      <button v-if="moreimages" @click="getmoreimages" id="moreimagesbutton">more</more>
+        <button v-if="!moreimages" id="moreimagesbutton">no more pictures</more>
+
     </div>
-      <button @click="getmoreimages" id="moreimagesbutton">more</more>
+
+
   </div>
-
-
-</div>
-<script id="my-template" type="text/x-template">
-  <div id="biggerimage">
-    <h1 @click="closeemit">X</h1>
+  <script id="my-template" type="text/x-template">
+    <div id="biggerimage">
+    <h1 @click="closeemit" id="xbutton">X</h1>
 
     <h1>{{title}}</h1>
+            <p>{{description}}</p>
         <img :src="url"  alt="">
-        <p> {{description}}</p>
-        <p>{{username}}</p>
+          <p> by {{username}}</p>
+          <hr>
         <form>
                   <input type="text" v-model="form.comment" name="commentusername" placeholder="username">
                   <input type="text" v-model="form.commentusername"  name="description" placeholder="comment">
           <button @click="uploadcomment">comment</button>
         </form>
         <div v-for= "each in comments">
-        <p>{{each.comment}}</p>
+  <p>{{each.comment}}</p>
         <p>{{each.commentusername}}</p>
         </div>
 </div>
 </script>
-    <script src="/js/vue.js"></script>
-    <script src="/js/axios.min.js"></script>
-    <script src="/js/script.js"></script>
+  <script src="/js/vue.js"></script>
+  <script src="/js/axios.min.js"></script>
+  <script src="/js/script.js"></script>
 </body>
+
 </html>

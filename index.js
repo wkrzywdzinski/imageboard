@@ -56,7 +56,19 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
 });
 app.get("/get-picture/:id", function(req, res) {
   db.getpicture(req.params.id).then(function(results) {
-    res.json(results.rows);
+    if (results.rows[0]) {
+      // console.log(results.rows);
+      res.json(results.rows);
+    } else {
+      res.json([
+        {
+          id: 0,
+          title: "IMAGE NOT FOUND",
+          username: "imagenotfound",
+          url: "notfound.jpg"
+        }
+      ]);
+    }
   });
 });
 app.get("/getmoreimages/:id", function(req, res) {

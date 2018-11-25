@@ -1,11 +1,11 @@
 (function() {
+  /////////////////////////////showimage///////////////
   Vue.component("showimage", {
     template: "#my-template",
-    props: ["assignedid"],
+    props: ["assignedid", "prev", "next"],
     // prop takes property of parent
     data: function() {
       return {
-        heading: "heading compo",
         comments: [],
         title: "",
         description: "",
@@ -28,6 +28,12 @@
           self.title = resp.data[0].title;
           self.comments = resp.data;
         });
+      },
+      prev: function() {
+        var self = this;
+      },
+      next: function() {
+        var self = this;
       }
     },
     mounted: function() {
@@ -42,6 +48,12 @@
       });
     },
     methods: {
+      showprev: function() {
+        this.$emit("prev");
+      },
+      shownext: function() {
+        this.$emit("next");
+      },
       uploadcomment: function(e) {
         var self = this;
         e.preventDefault();
@@ -60,14 +72,18 @@
       }
     }
   });
-
+  ////////////////////////////////////////////////////////////////////////////
   new Vue({
     el: "#main",
     data: {
       header: "imageboard",
       images: [],
       imageid: location.hash.slice(1) || 0,
+      lastid: null,
+      firstid: null,
       moreimages: true,
+      next: true,
+      prev: true,
       form: {
         title: "",
         description: "",
@@ -77,7 +93,6 @@
     },
     mounted: function() {
       var self = this;
-      /////////scope//////////
       window.addEventListener("hashchange", function() {
         // console.log("location hash", location.hash.slice(1));
         self.imageid = location.hash.slice(1);
@@ -85,6 +100,8 @@
       axios.get("/get-info").then(function(resp) {
         let getrespfromserver = resp.data;
         self.images = getrespfromserver;
+        self.lastid = self.images[self.images.length - 1].id;
+        self.firstid = self.images[0].id;
       });
     },
     methods: {
@@ -93,6 +110,26 @@
       },
       closecomponent: function() {
         this.imageid = null;
+      },
+      nextcall: function() {
+        var self = this;
+        if (this.imageid >= 2) {
+          let minusid = this.imageid - 1;
+          self.prev = true;
+          self.imageid = minusid;
+        } else {
+          self.next = false;
+        }
+      },
+      prevcall: function() {
+        var self = this;
+        if (this.imageid < this.firstid) {
+          let plusid = Number(this.imageid) + 1;
+          self.next = true;
+          self.imageid = plusid;
+        } else {
+          self.prev = false;
+        }
       },
       handleFileChange: function(e) {
         this.form.file = e.target.files[0];
@@ -112,12 +149,11 @@
       },
       getmoreimages: function() {
         var self = this;
-        var lastimageid = this.images[this.images.length - 1].id;
-        if (lastimageid == 1) {
+        self.lastid = self.images[self.images.length - 1].id;
+        if (self.lastid == 1) {
           this.moreimages = false;
-          console.log(this);
         }
-        axios.get("getmoreimages/" + lastimageid).then(function(resp) {
+        axios.get("getmoreimages/" + self.lastid).then(function(resp) {
           self.images.push.apply(self.images, resp.data);
         });
       }

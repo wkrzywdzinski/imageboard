@@ -17,7 +17,7 @@
 
       <button @click="uploadFile">submit</button>
     </form>
-    <showimage :assignedid="imageid" v-if="imageid" @closeimagebox="closecomponent"></showimage>
+    <showimage :assignedid="imageid" :prev="prev" :next="next" v-if="imageid" @closeimagebox="closecomponent" @prev="prevcall" @next="nextcall"></showimage>
     <div id="imagebigbox">
 
       <div class="imagebox" v-for="each in images">
@@ -45,6 +45,8 @@
             <p>{{description}}</p>
         <img :src="url"  alt="">
           <p> by {{username}}</p>
+              <h1 v-if="prev" @click="showprev"  id="xbutton"><<</h1>
+              <h1 v-if="next" @click="shownext" id="xbutton">>></h1>
           <hr>
         <form>
                   <input type="text" v-model="form.comment" name="commentusername" placeholder="username">

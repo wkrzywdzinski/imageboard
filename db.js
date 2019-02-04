@@ -1,10 +1,10 @@
 const spicedPg = require("spiced-pg");
 const db = spicedPg(
-  /////change the name under///////
   process.env.DATABASE_URL ||
     `postgres:postgres:anneanneanne@localhost:5432/images`
 );
 
+/// gets the first 9 images
 exports.getdata = function() {
   return db.query(
     `SELECT * FROM images
@@ -12,6 +12,8 @@ exports.getdata = function() {
     LIMIT 9`
   );
 };
+
+/// gets picture by ID
 exports.getpicture = id => {
   return db.query(
     `SELECT images.id, url, username, commentusername, title, description, comment
@@ -24,6 +26,7 @@ exports.getpicture = id => {
   );
 };
 
+/// gets more pictures
 exports.getmoreimages = id => {
   return db.query(
     `SELECT *, (
@@ -36,6 +39,8 @@ exports.getmoreimages = id => {
     [id]
   );
 };
+
+/// picture upload
 exports.insertdata = function(url, username, title, description) {
   return db.query(
     `INSERT INTO images (url, username, title, description)
@@ -44,6 +49,8 @@ exports.insertdata = function(url, username, title, description) {
     [url || null, username || null, title || null, description || null]
   );
 };
+
+/// comment
 exports.insertcomment = function(imageid, commentusername, comment) {
   return db.query(
     `INSERT INTO comments (imageid, commentusername, comment)

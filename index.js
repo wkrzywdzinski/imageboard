@@ -7,7 +7,9 @@ const config = require("./config.json");
 app.use(bodyParser.json());
 app.use(express.static("./public"));
 app.use(express.static("./uploads"));
-///////////////////upload file///////////////////
+
+/////////////////// FILE UPLOAD ///////////////////
+
 var multer = require("multer");
 var uidSafe = require("uid-safe");
 var path = require("path");
@@ -23,20 +25,52 @@ var diskStorage = multer.diskStorage({
     });
   }
 });
-//sets limit/////////
+
+///sets limit
 var uploader = multer({
   storage: diskStorage,
   limits: {
     fileSize: 2097152
   }
 });
-//////////////////////get////////////////////////
+
+//////////////////////GET ROUTES////////////////////////
+
+///gets all the valid infos to show website
 app.get("/get-info", (req, res) => {
   db.getdata().then(function(results) {
     res.json(results.rows);
   });
 });
-////////////////////post///////////////////
+
+///gets picture by ID
+app.get("/get-picture/:id", function(req, res) {
+  db.getpicture(req.params.id).then(function(results) {
+    if (results.rows[0]) {
+      res.json(results.rows);
+    } else {
+      res.json([
+        {
+          id: 0,
+          title: "IMAGE NOT FOUND",
+          username: "imagenotfound",
+          url: "notfound.jpg"
+        }
+      ]);
+    }
+  });
+});
+
+/// gets more pictures after user clicks button
+app.get("/getmoreimages/:id", function(req, res) {
+  db.getmoreimages(req.params.id).then(function(results) {
+    res.json(results.rows);
+  });
+});
+
+//////////////////////POST ROUTES////////////////////////
+
+/// image upload
 app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
   let fullurl = config.s3Url + req.file.filename;
   if (req.file) {
@@ -54,29 +88,8 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
     });
   }
 });
-app.get("/get-picture/:id", function(req, res) {
-  db.getpicture(req.params.id).then(function(results) {
-    if (results.rows[0]) {
-      // console.log(results.rows);
-      res.json(results.rows);
-    } else {
-      res.json([
-        {
-          id: 0,
-          title: "IMAGE NOT FOUND",
-          username: "imagenotfound",
-          url: "notfound.jpg"
-        }
-      ]);
-    }
-  });
-});
-app.get("/getmoreimages/:id", function(req, res) {
-  ///////////if = 1 do something/////////////
-  db.getmoreimages(req.params.id).then(function(results) {
-    res.json(results.rows);
-  });
-});
+
+///image comment
 app.post("/comment", function(req, res) {
   db.insertcomment(
     req.body.imageid,

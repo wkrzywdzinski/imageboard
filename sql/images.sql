@@ -8,6 +8,7 @@ CREATE TABLE images(
     description TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 DROP TABLE IF EXISTS comments;
 CREATE TABLE comments(
     id SERIAL PRIMARY KEY,
@@ -16,6 +17,8 @@ CREATE TABLE comments(
     comment TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- 3 preview pictures
 
 INSERT INTO images (url, username, title, description) VALUES (
     'https://www.morebusiness.com/wp-content/uploads/2016/02/free-stock-photos-696x522.jpg',

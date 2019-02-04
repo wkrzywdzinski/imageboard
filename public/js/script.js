@@ -20,7 +20,6 @@
     watch: {
       assignedid: function() {
         var self = this;
-        // console.log("watcher watches", this.assignedid);
         axios.get("/get-picture/" + this.assignedid).then(function(resp) {
           self.url = resp.data[0].url;
           self.username = resp.data[0].username;
@@ -44,7 +43,6 @@
         self.description = resp.data[0].description;
         self.title = resp.data[0].title;
         self.comments = resp.data;
-        // console.log(self);
       });
     },
     methods: {
@@ -94,7 +92,6 @@
     mounted: function() {
       var self = this;
       window.addEventListener("hashchange", function() {
-        // console.log("location hash", location.hash.slice(1));
         self.imageid = location.hash.slice(1);
       });
       axios.get("/get-info").then(function(resp) {

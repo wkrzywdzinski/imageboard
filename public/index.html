@@ -9,17 +9,20 @@
 
 <body>
   <div id="main">
+
+    <!-- //////////////////IMAGE UPLOAD PART ////////////// -->
     <form id="uploadbar">
       <input type="file" name="file" placeholder="upload file" accept="image/*" @change="handleFileChange">
       <input v-model="form.title" type="text" name="title" placeholder="title">
       <input v-model="form.description" type="text" name="description" placeholder="description">
       <input v-model="form.username" type="text" name="username" placeholder="username">
-
       <button @click="uploadFile">submit</button>
     </form>
-    <showimage :assignedid="imageid" :prev="prev" :next="next" v-if="imageid" @closeimagebox="closecomponent" @prev="prevcall" @next="nextcall"></showimage>
+
+    <!-- ///////////////CONTAINER FOR ALL THE PICTURES////////////// -->
     <div id="imagebigbox">
 
+      <!-- ///container for each picture/// -->
       <div class="imagebox" v-for="each in images">
         <h1>{{each.title}}</h1>
         <p>{{each.description}}</p>
@@ -27,17 +30,21 @@
           <img :src="each.url" :id="each.id" alt="" @click="checkid">
           <p>by {{each.username}}</p>
         </a>
-
-        <!-- remember colon >> no brackets -->
       </div>
+      <!-- ///end of container for each picture/// -->
+
       <button v-if="moreimages" @click="getmoreimages" id="moreimagesbutton">more</more>
         <button v-if="!moreimages" id="moreimagesbutton">no more pictures</more>
 
     </div>
+    <!-- ///////////////////////END OF BIG CONTAINER////////////////// -->
 
+    <biggerimage :assignedid="imageid" v-if="imageid" @closeimagebox="closecomponent"></biggerimage>
 
   </div>
-  <script id="my-template" type="text/x-template">
+
+  <!-- ///////////TEMPLATE FOR BIGGER PICTURE///////////// -->
+  <script id="biggertemplate" type="text/x-template">
     <div id="biggerimage">
     <h1 @click="closeemit" id="xbutton">X</h1>
 
@@ -45,12 +52,11 @@
             <p>{{description}}</p>
         <img :src="url"  alt="">
           <p> by {{username}}</p>
-              <h1 v-if="prev" @click="showprev"  id="xbutton"><<</h1>
-              <h1 v-if="next" @click="shownext" id="xbutton">>></h1>
+
           <hr>
         <form>
-                  <input type="text" v-model="form.comment" name="commentusername" placeholder="username">
-                  <input type="text" v-model="form.commentusername"  name="description" placeholder="comment">
+          <input type="text" v-model="form.comment" name="commentusername" placeholder="username">
+          <input type="text" v-model="form.commentusername"  name="description" placeholder="comment">
           <button @click="uploadcomment">comment</button>
         </form>
         <div v-for= "each in comments">
@@ -59,6 +65,8 @@
         </div>
 </div>
 </script>
+  <!-- ///////////END OF TEMPLATE///////////// -->
+
   <script src="/js/vue.js"></script>
   <script src="/js/axios.min.js"></script>
   <script src="/js/script.js"></script>

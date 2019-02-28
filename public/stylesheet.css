@@ -27,7 +27,7 @@ input {
   height: 50px;
 }
 
-#imagebigbox {
+#imagescontainer {
   margin-top: 100px;
   display: flex;
   flex-flow: row wrap;

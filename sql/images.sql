@@ -40,3 +40,24 @@ INSERT INTO images (url, username, title, description) VALUES (
     'whale kite',
     'it is impressive.'
 );
+
+INSERT INTO images (url, username, title, description) VALUES (
+    'https://mymodernmet.com/wp/wp-content/uploads/2018/05/free-image-downloads.jpg',
+    'kitelover',
+    'whale kite',
+    'it is impressive.'
+);
+
+INSERT INTO images (url, username, title, description) VALUES (
+    'https://honest-food.net/wp-content/uploads/2015/07/fish-stock-recipe.jpg',
+    'souplover',
+    'fish soup',
+    'i made it yesterday.'
+);
+
+INSERT INTO images (url, username, title, description) VALUES (
+    'http://cdn8.openculture.com/wp-content/uploads/2015/09/Kandinsky-Light-Picture.jpg',
+    'artboy',
+    'Kandinsky',
+    'i like this one.'
+);

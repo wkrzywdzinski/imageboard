@@ -3,6 +3,7 @@
 
 <head>
   <link href="https://fonts.googleapis.com/css?family=Rubik+Mono+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Bangers" rel="stylesheet">
   <link rel="stylesheet" href="stylesheet.css">
   <title></title>
 </head>
@@ -12,8 +13,9 @@
 
     <!-- //////////////////IMAGE UPLOAD PART ////////////// -->
     <header>
+      <h1 id="logo">PHOTOSHARE</h1>
       <form id="uploadbar">
-        <input type="file" name="file" placeholder="upload file" accept="image/*" @change="handleFileChange">
+        <input type="file" name="file" id="uploadbutton" placeholder="xx" accept="image/*" @change="handleFileChange">
         <input v-model="form.title" type="text" name="title" placeholder="title">
         <input v-model="form.description" type="text" name="description" placeholder="description">
         <input v-model="form.username" type="text" name="username" placeholder="username">
@@ -60,8 +62,9 @@
         <button @click="uploadcomment">comment</button>
       </form>
       <div v-for= "each in comments">
-        <p>{{each.comment}}</p>
-        <p>{{each.commentusername}}</p>
+        <hr>
+        <p>{{each.comment}} {{each.commentusername}}</p>
+        <hr>
       </div>
   </div>
 </script>

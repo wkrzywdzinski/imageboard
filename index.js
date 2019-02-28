@@ -99,5 +99,5 @@ app.post("/comment", function(req, res) {
     res.json(results.rows);
   });
 });
-////////////////////////downsection/////////////////////
-app.listen(8080, () => console.log("listening 8080"));
+////////////////////////server setup/////////////////////
+app.listen(process.env.PORT || 8080, () => console.log("listening 8080"));

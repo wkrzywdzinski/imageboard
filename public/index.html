@@ -11,16 +11,18 @@
   <div id="main">
 
     <!-- //////////////////IMAGE UPLOAD PART ////////////// -->
-    <form id="uploadbar">
-      <input type="file" name="file" placeholder="upload file" accept="image/*" @change="handleFileChange">
-      <input v-model="form.title" type="text" name="title" placeholder="title">
-      <input v-model="form.description" type="text" name="description" placeholder="description">
-      <input v-model="form.username" type="text" name="username" placeholder="username">
-      <button @click="uploadFile">submit</button>
-    </form>
+    <header>
+      <form id="uploadbar">
+        <input type="file" name="file" placeholder="upload file" accept="image/*" @change="handleFileChange">
+        <input v-model="form.title" type="text" name="title" placeholder="title">
+        <input v-model="form.description" type="text" name="description" placeholder="description">
+        <input v-model="form.username" type="text" name="username" placeholder="username">
+        <button @click="uploadFile">submit</button>
+      </form>
+    </header>
 
     <!-- ///////////////CONTAINER FOR ALL THE PICTURES////////////// -->
-    <div id="imagebigbox">
+    <div id="imagescontainer">
 
       <!-- ///container for each picture/// -->
       <div class="imagebox" v-for="each in images">
@@ -46,24 +48,22 @@
   <!-- ///////////TEMPLATE FOR BIGGER PICTURE///////////// -->
   <script id="biggertemplate" type="text/x-template">
     <div id="biggerimage">
-    <h1 @click="closeemit" id="xbutton">X</h1>
-
-    <h1>{{title}}</h1>
-            <p>{{description}}</p>
-        <img :src="url"  alt="">
-          <p> by {{username}}</p>
-
-          <hr>
-        <form>
-          <input type="text" v-model="form.comment" name="commentusername" placeholder="username">
-          <input type="text" v-model="form.commentusername"  name="description" placeholder="comment">
-          <button @click="uploadcomment">comment</button>
-        </form>
-        <div v-for= "each in comments">
-  <p>{{each.comment}}</p>
+      <h1 @click="closeemit" id="xbutton">X</h1>
+      <h1>{{title}}</h1>
+      <p>{{description}}</p>
+      <img :src="url"  alt="">
+      <p> by {{username}}</p>
+      <hr>
+      <form>
+        <input type="text" v-model="form.comment" name="commentusername" placeholder="username">
+        <input type="text" v-model="form.commentusername"  name="description" placeholder="comment">
+        <button @click="uploadcomment">comment</button>
+      </form>
+      <div v-for= "each in comments">
+        <p>{{each.comment}}</p>
         <p>{{each.commentusername}}</p>
-        </div>
-</div>
+      </div>
+  </div>
 </script>
   <!-- ///////////END OF TEMPLATE///////////// -->
 

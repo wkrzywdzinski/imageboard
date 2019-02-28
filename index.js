@@ -38,34 +38,55 @@ var uploader = multer({
 
 ///gets all the valid infos to show website
 app.get("/get-info", (req, res) => {
-  db.getdata().then(function(results) {
-    res.json(results.rows);
-  });
+  db.getdata()
+    .then(function(results) {
+      res.json(results.rows);
+    })
+    .catch(function(err) {
+      console.log(err);
+      res.json({
+        success: false
+      });
+    });
 });
 
 ///gets picture by ID
 app.get("/get-picture/:id", function(req, res) {
-  db.getpicture(req.params.id).then(function(results) {
-    if (results.rows[0]) {
-      res.json(results.rows);
-    } else {
-      res.json([
-        {
-          id: 0,
-          title: "IMAGE NOT FOUND",
-          username: "imagenotfound",
-          url: "notfound.jpg"
-        }
-      ]);
-    }
-  });
+  db.getpicture(req.params.id)
+    .then(function(results) {
+      if (results.rows[0]) {
+        res.json(results.rows);
+      } else {
+        res.json([
+          {
+            id: 0,
+            title: "IMAGE NOT FOUND",
+            username: "imagenotfound",
+            url: "notfound.jpg"
+          }
+        ]);
+      }
+    })
+    .catch(function(err) {
+      console.log(err);
+      res.json({
+        success: false
+      });
+    });
 });
 
 /// gets more pictures after user clicks button
 app.get("/getmoreimages/:id", function(req, res) {
-  db.getmoreimages(req.params.id).then(function(results) {
-    res.json(results.rows);
-  });
+  db.getmoreimages(req.params.id)
+    .then(function(results) {
+      res.json(results.rows);
+    })
+    .catch(function(err) {
+      console.log(err);
+      res.json({
+        success: false
+      });
+    });
 });
 
 //////////////////////POST ROUTES////////////////////////
@@ -73,31 +94,35 @@ app.get("/getmoreimages/:id", function(req, res) {
 /// image upload
 app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
   let fullurl = config.s3Url + req.file.filename;
-  if (req.file) {
-    db.insertdata(
-      fullurl,
-      req.body.username,
-      req.body.title,
-      req.body.description
-    ).then(function(results) {
+  db.insertdata(
+    fullurl,
+    req.body.username,
+    req.body.title,
+    req.body.description
+  )
+    .then(function(results) {
       res.json(results.rows);
+    })
+    .catch(function(err) {
+      console.log(err);
+      res.json({
+        success: false
+      });
     });
-  } else {
-    res.json({
-      success: false
-    });
-  }
 });
 
 ///image comment
 app.post("/comment", function(req, res) {
-  db.insertcomment(
-    req.body.imageid,
-    req.body.commentusername,
-    req.body.comment
-  ).then(function(results) {
-    res.json(results.rows);
-  });
+  db.insertcomment(req.body.imageid, req.body.commentusername, req.body.comment)
+    .then(function(results) {
+      res.json(results.rows);
+    })
+    .catch(function(err) {
+      console.log(err);
+      res.json({
+        success: false
+      });
+    });
 });
 ////////////////////////server setup/////////////////////
 

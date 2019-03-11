@@ -50,7 +50,7 @@
         if (self.lastid == 1) {
           this.moreimages = false;
         }
-        axios.get("getmoreimages/" + self.lastid).then(function(resp) {
+        axios.get("get-more-images/" + self.lastid).then(function(resp) {
           self.images.push.apply(self.images, resp.data);
         });
       }

@@ -38,7 +38,7 @@ var uploader = multer({
 
 ///gets all the valid infos to show website
 app.get("/get-info", (req, res) => {
-  db.getdata()
+  db.getData()
     .then(function(results) {
       res.json(results.rows);
     })
@@ -52,7 +52,7 @@ app.get("/get-info", (req, res) => {
 
 ///gets picture by ID
 app.get("/get-picture/:id", function(req, res) {
-  db.getpicture(req.params.id)
+  db.getPicture(req.params.id)
     .then(function(results) {
       if (results.rows[0]) {
         res.json(results.rows);
@@ -76,8 +76,8 @@ app.get("/get-picture/:id", function(req, res) {
 });
 
 /// gets more pictures after user clicks button
-app.get("/getmoreimages/:id", function(req, res) {
-  db.getmoreimages(req.params.id)
+app.get("/get-more-images/:id", function(req, res) {
+  db.getMoreImages(req.params.id)
     .then(function(results) {
       res.json(results.rows);
     })
@@ -94,7 +94,7 @@ app.get("/getmoreimages/:id", function(req, res) {
 /// image upload
 app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
   let fullurl = config.s3Url + req.file.filename;
-  db.insertdata(
+  db.insertData(
     fullurl,
     req.body.username,
     req.body.title,
@@ -113,7 +113,7 @@ app.post("/upload", uploader.single("file"), s3.upload, function(req, res) {
 
 ///image comment
 app.post("/comment", function(req, res) {
-  db.insertcomment(req.body.imageid, req.body.commentusername, req.body.comment)
+  db.insertComment(req.body.imageid, req.body.commentusername, req.body.comment)
     .then(function(results) {
       res.json(results.rows);
     })

@@ -5,7 +5,7 @@ const db = spicedPg(
 );
 
 /// gets the first 9 images
-exports.getdata = function() {
+exports.getData = function() {
   return db.query(
     `SELECT * FROM images
     ORDER BY id DESC
@@ -14,7 +14,7 @@ exports.getdata = function() {
 };
 
 /// gets picture by ID
-exports.getpicture = id => {
+exports.getPicture = id => {
   return db.query(
     `SELECT images.id, url, username, commentusername, title, description, comment
         FROM images
@@ -27,7 +27,7 @@ exports.getpicture = id => {
 };
 
 /// gets more pictures
-exports.getmoreimages = id => {
+exports.getMoreImages = id => {
   return db.query(
     `SELECT *, (
       SELECT ID AS last_id FROM images WHERE ID = 5
@@ -41,7 +41,7 @@ exports.getmoreimages = id => {
 };
 
 /// picture upload
-exports.insertdata = function(url, username, title, description) {
+exports.insertData = function(url, username, title, description) {
   return db.query(
     `INSERT INTO images (url, username, title, description)
         VALUES ($1, $2, $3, $4)
@@ -51,7 +51,7 @@ exports.insertdata = function(url, username, title, description) {
 };
 
 /// comment
-exports.insertcomment = function(imageid, commentusername, comment) {
+exports.insertComment = function(imageid, commentusername, comment) {
   return db.query(
     `INSERT INTO comments (imageid, commentusername, comment)
         VALUES ($1, $2, $3)
